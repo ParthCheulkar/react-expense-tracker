@@ -1,4 +1,4 @@
-import Expenses from "./components/Expenses"; //importing our custom component.
+import Expenses from "./components/Expenses/Expenses"; //importing our custom component.
 
 function App() {
   // functional Component App
