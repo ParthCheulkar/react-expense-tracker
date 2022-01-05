@@ -1,15 +1,16 @@
-import {useState} from 'react';
+import { useState } from "react";
 import ExpenseDate from "./ExpenseDate";
 import "./ExpenseItem.css"; //importing styles
 import Card from "../UI/Card"; //importing this custom made div to avoid duplication of styles.
 function ExpenseItem(props) {
   //props are like properties or parameters coz react only allows one parameter in a fn cmpnt
-  useState();
-  let title = props.title;
+  const [title, setTitle] = useState(props.title); //React Hook
+  // use state is separated and executed on a per component basis
 
-  const clickHandler = () =>{
-    console.log("Clickedddddd!!!!");
-  }
+  const clickHandler = () => {
+    setTitle("Updated"); //updates value by re-rendering the component
+    console.log(title); //will see the previous value coz immediately the varibale value doesn't change, it lags by one cycle
+  };
   // defining our custom component
   // using a different cmpnt inside our cmpnt
   return (
@@ -19,11 +20,7 @@ function ExpenseItem(props) {
         <h2>{title}</h2>
         <div className="expense-item__price">${props.amount}</div>
       </div>
-      <button
-        onClick={clickHandler}
-      >
-        Change title
-      </button>
+      <button onClick={clickHandler}>Change title</button>
     </Card>
   );
 }

@@ -1,5 +1,5 @@
 import Expenses from "./components/Expenses/Expenses"; //importing our custom component.
-
+import NewExpense from "./components/NewExpense/NewExpense";
 function App() {
   // functional Component App
   // array of objects (data)
@@ -27,7 +27,7 @@ function App() {
 
   return (
     <div>
-      <h2>Let's get started!</h2>
+      <NewExpense />
       <Expenses data={expenses} />
     </div>
     // this is JSX, a special syntax provided by React.
