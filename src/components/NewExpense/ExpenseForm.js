@@ -1,54 +1,77 @@
 import React, { useState } from "react";
 import "./ExpenseForm.css";
-export default function ExpenseForm() {
-  // const [enteredTitle, setEnteredTitle] = useState("");
-  // const [enteredAmount, setEnteredAmount] = useState("");
-  // const [enteredDate, setEnteredDate] = useState("");
+export default function ExpenseForm(props) {
+  const [enteredTitle, setEnteredTitle] = useState("");
+  const [enteredAmount, setEnteredAmount] = useState("");
+  const [enteredDate, setEnteredDate] = useState("");
 
   //THE ABOVE APPROACH MAKES USE OF THREE SEPARATE STATES. WE CAN ALSO DO IT USING ONE STATE.
 
-  const [userInput, setUserInput] = useState({
-    enteredTitle: "",
-    enteredAmount: "",
-    enteredDate: "",
-  });
+  // const [userInput, setUserInput] = useState({
+    // enteredTitle: "",
+    // enteredAmount: "",
+    // enteredDate: "",
+  // });
 
   // all states are initialized as a string bcoz the event object values outputs all data as strings even amount or dates.
 
   const titleChangeHandler = (e) => {
     // console.log(e.target.value); //to get value on every keystroke.
-    // setEnteredTitle(e.target.value);
+    setEnteredTitle(e.target.value);
     //ABOVE IS FOR WHEN WE USE THREE SEPARATE STATES. FOR ONE STATE,
 
-    setUserInput({
-      ...userInput,
-      enteredTitle: e.target.value,
-    });
+  //   setUserInput({
+  //     ...userInput,
+  //     enteredTitle: e.target.value,
+  //   });
+  // 
+    // setUserInput((prevState) => {
+    //   return{
+    //     ...prevState, enteredTitle: e.target.value,
+    //   };
+    // })
+    // THE ABOVE APROACH IS THE MOST EFFICIENT ONE WHEN WE REQUIRE DATA FROM THE PREVIOUS STATE, IT IS MOST RECOMMENDED
+
   };
   const amountChangeHandler = (e) => {
-    // setEnteredAmount(e.target.value);
+    setEnteredAmount(e.target.value);
     //ABOVE IS FOR WHEN WE USE THREE SEPARATE STATES. FOR ONE STATE,
 
-    setUserInput({
-      ...userInput,
-      enteredAmount: e.target.value,
-    });
+    // setUserInput({
+    //   ...userInput,  
+    //   enteredAmount: e.target.value,
+    // });
   };
   const dateChangeHandler = (e) => {
-    // setEnteredDate(e.target.value);
+    setEnteredDate(e.target.value);
     //ABOVE IS FOR WHEN WE USE THREE SEPARATE STATES. FOR ONE STATE,
 
-    setUserInput({
-      ...userInput,
-      enteredDate: e.target.value,
-    });
+    // setUserInput({
+    //   ...userInput,
+    //   enteredDate: e.target.value,
+    // });
   };
+
+  const submitHandler = (e) => {
+    e.preventDefault(); //prevents default behavior
+    const expenseData = {
+      title: enteredTitle,
+      amount: enteredAmount,
+      date: new Date(enteredDate)
+    };
+    props.onSaveExpenseData(expenseData);
+    setEnteredTitle('');
+    setEnteredAmount('');
+    setEnteredDate('');
+
+  };
+
   return (
-    <form>
+    <form onSubmit={submitHandler}>
       <div className="new-expense__controls">
         <div className="new-expense__control">
           <label>Title</label>
-          <input type="text" onChange={titleChangeHandler} />
+          <input type="text" value={enteredTitle} onChange={titleChangeHandler} />
         </div>
         <div className="new-expense__control">
           <label>Amount</label>
@@ -56,6 +79,7 @@ export default function ExpenseForm() {
             type="number"
             min="0.01"
             step="0.01"
+            value={enteredAmount}
             onChange={amountChangeHandler}
           />
         </div>
@@ -65,6 +89,7 @@ export default function ExpenseForm() {
             type="date"
             min="2019-01-01"
             max="2022-12-31"
+            value={enteredDate}
             onChange={dateChangeHandler}
           />
         </div>
