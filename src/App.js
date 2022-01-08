@@ -24,10 +24,14 @@ function App() {
       date: new Date(2021, 5, 12),
     },
   ];
+  const addExpenseHandler = (expense) => { //lifting the state up, getting our form data
+    console.log("in App JS");
+    console.log(expense);
 
+  }
   return (
     <div>
-      <NewExpense />
+      <NewExpense onAddExpense = {addExpenseHandler} />
       <Expenses data={expenses} />
     </div>
     // this is JSX, a special syntax provided by React.
