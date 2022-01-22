@@ -8,9 +8,9 @@ export default function ExpenseForm(props) {
   //THE ABOVE APPROACH MAKES USE OF THREE SEPARATE STATES. WE CAN ALSO DO IT USING ONE STATE.
 
   // const [userInput, setUserInput] = useState({
-    // enteredTitle: "",
-    // enteredAmount: "",
-    // enteredDate: "",
+  // enteredTitle: "",
+  // enteredAmount: "",
+  // enteredDate: "",
   // });
 
   // all states are initialized as a string bcoz the event object values outputs all data as strings even amount or dates.
@@ -20,25 +20,24 @@ export default function ExpenseForm(props) {
     setEnteredTitle(e.target.value);
     //ABOVE IS FOR WHEN WE USE THREE SEPARATE STATES. FOR ONE STATE,
 
-  //   setUserInput({
-  //     ...userInput,
-  //     enteredTitle: e.target.value,
-  //   });
-  // 
+    //   setUserInput({
+    //     ...userInput,
+    //     enteredTitle: e.target.value,
+    //   });
+    //
     // setUserInput((prevState) => {
     //   return{
     //     ...prevState, enteredTitle: e.target.value,
     //   };
     // })
     // THE ABOVE APROACH IS THE MOST EFFICIENT ONE WHEN WE REQUIRE DATA FROM THE PREVIOUS STATE, IT IS MOST RECOMMENDED
-
   };
   const amountChangeHandler = (e) => {
     setEnteredAmount(e.target.value);
     //ABOVE IS FOR WHEN WE USE THREE SEPARATE STATES. FOR ONE STATE,
 
     // setUserInput({
-    //   ...userInput,  
+    //   ...userInput,
     //   enteredAmount: e.target.value,
     // });
   };
@@ -56,14 +55,13 @@ export default function ExpenseForm(props) {
     e.preventDefault(); //prevents default behavior
     const expenseData = {
       title: enteredTitle,
-      amount: enteredAmount,
-      date: new Date(enteredDate)
+      amount: +enteredAmount,
+      date: new Date(enteredDate),
     };
     props.onSaveExpenseData(expenseData);
-    setEnteredTitle('');
-    setEnteredAmount('');
-    setEnteredDate('');
-
+    setEnteredTitle("");
+    setEnteredAmount("");
+    setEnteredDate("");
   };
 
   return (
@@ -71,7 +69,11 @@ export default function ExpenseForm(props) {
       <div className="new-expense__controls">
         <div className="new-expense__control">
           <label>Title</label>
-          <input type="text" value={enteredTitle} onChange={titleChangeHandler} />
+          <input
+            type="text"
+            value={enteredTitle}
+            onChange={titleChangeHandler}
+          />
         </div>
         <div className="new-expense__control">
           <label>Amount</label>
@@ -95,6 +97,9 @@ export default function ExpenseForm(props) {
         </div>
       </div>
       <div className="new-expense__actions">
+        <button type="button" onClick={props.onCancel}>
+          Cancel
+        </button>
         <button type="submit">Add Expense</button>
       </div>
     </form>
